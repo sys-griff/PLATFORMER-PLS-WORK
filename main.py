@@ -3,6 +3,7 @@ import sys
 
 from Gameobject import Gameobject
 from Player import Player
+from Spritesheet import Spritesheet
 
 class Game:
     def __init__(self):
@@ -14,7 +15,9 @@ class Game:
         self.background = pygame.image.load("Clouds.png")
         self.background = pygame.transform.scale(self.background, (960, 540))
 
-        self.player = Player((0, 380), 2400, 160, "_Idle.png", self)
+        self.idle = Spritesheet(playerimg, 10)
+
+        self.player = Player((0, 380), 2400, 160, "_Idle.png", self, self.idle)
 
         self.clock = pygame.time.Clock()
 
@@ -28,6 +31,7 @@ class Game:
 
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         pygame.display.set_caption("Pygame Screen")
+        self.idle = Spritesheet(playerimg, 10)
 
     def run(self):
         while True:
