@@ -18,7 +18,7 @@ class Game:
         self.background = pygame.transform.scale(self.background, (960, 540))
 
 
-        self.player = Player((0, 380), 2400, 55555, "_Idle.png", self, self.load_animations())
+        self.player = Player((0, 260), 2400, 55555, "_Idle.png", self, self.load_animations())
 
         map_data = ""
 
@@ -44,7 +44,8 @@ class Game:
 
     def load_animations(self):
         return {"Idle": Spritesheet("_Idle.png", 10),
-                  "Run": Spritesheet("_Run.png", 10)}
+                  "Run": Spritesheet("_Run.png", 10),
+                  "Jump": Spritesheet("_Jump.png", 3)}
 
     def run(self):
         while True:
@@ -67,7 +68,11 @@ class Game:
 
             self.screen.blit(self.background, (0, 0))
 
+            self.tilemap.render(self.screen)
+
             self.player.render(elapsed_time)
+
+            self.player.collisions(self.tilemap.physical_tiles, self.screen)
 
             pygame.display.flip()
 
